@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QScriptEngine>
 
 namespace Ui {
 class MainWindow;
@@ -15,8 +16,16 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+  double EvaluateFunction(double x);
 private:
   Ui::MainWindow *ui;
+
+  QScriptEngine engine;
+  QScriptProgram program;
+
+  double fdrawvalues[30];
+private slots:
+  void UpdateFunction();
 };
 
 #endif // MAINWINDOW_H

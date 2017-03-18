@@ -4,12 +4,17 @@
 #include <QWidget>
 #include <QTransform>
 
+class MainWindow;
+
 class PlotWidget : public QWidget
 {
   Q_OBJECT
 public:
   explicit PlotWidget(QWidget *parent = 0);
 
+  MainWindow *mainWindow;
+
+  void RecalculateFunction();
 private:
   /* Called when the widget must be redrawn */
   void paintEvent(QPaintEvent *e);
@@ -22,6 +27,11 @@ private:
 
   float a;
   float b;
+
+  float intervalX[30];
+
+  QPolygonF polygon;
+
 signals:
 
 public slots:
