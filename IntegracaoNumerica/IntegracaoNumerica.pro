@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    plotwidget.cpp
+    plotwidget.cpp \
+    integrationmethod.cpp
 
 HEADERS  += mainwindow.h \
-    plotwidget.h
+    plotwidget.h \
+    integrationmethod.h
 
 FORMS    += mainwindow.ui

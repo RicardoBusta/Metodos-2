@@ -14,7 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
   ui->plot_widget->mainWindow = this;
 
+  ui->function_lineEdit->setText("-x");
+
   QObject::connect(ui->update_graphic_pushButton,SIGNAL(clicked(bool)),this,SLOT(UpdateFunction()));
+
+  UpdateFunction();
 }
 
 MainWindow::~MainWindow()

@@ -7,7 +7,8 @@
 
 #include "mainwindow.h"
 
-const int kBorder = 30;
+// Pixels de largura da borda ao redor do gráfico
+const int kBorder = 40;
 
 PlotWidget::PlotWidget(QWidget *parent)
   : QWidget(parent),
@@ -21,34 +22,37 @@ PlotWidget::PlotWidget(QWidget *parent)
 void PlotWidget::paintEvent(QPaintEvent *e) {
   QPainter painter(this);
 
-  // Draw widget border
-  painter.setBrush(Qt::white);
-  painter.setPen(palette().dark().color());
-  painter.drawRect(this->rect().adjusted(0, 0, -1, -1));
-
-  // Draw function
-  painter.setPen(Qt::NoPen);
-  painter.setBrush(Qt::gray);
-
-  //painter.drawRect(QRect((QPoint(0, 0) * transform), (QPoint(1, 1) * transform)));
-
-  // Draw text limits
-  qDebug() << "drawing polygon" << polygon.size();
-  painter.drawPolygon(polygon*transform);
-
+  // Calcular eixos do zero na transformação
   QPointF fzero = QPointF(0,0)*transform;
   QPointF wzero = QPointF(a,min_y)*transform;
   QPointF wone = QPointF(b,max_y)*transform;
 
+  // Desenhar área da função
+  painter.setBrush(Qt::white);
+  painter.setPen(Qt::NoPen);
+  painter.drawRect(QRectF(wzero,wone));
+
+  // Desenhar função
+  painter.setPen(Qt::NoPen);
+  painter.setBrush(Qt::gray);
+  qDebug() << "drawing polygon" << polygon.size();
+  painter.drawPolygon(polygon*transform);
+
   painter.setPen(Qt::black);
   painter.setBrush(Qt::NoBrush);
 
+  // Desenhar eixos do zero
   painter.drawLine(QPointF(fzero.x(),wzero.y()),QPointF(fzero.x(),wone.y()));
   painter.drawLine(QPointF(wzero.x(),fzero.y()),QPointF(wone.x(),fzero.y()));
 
+  // Desenhar labels com números
   painter.drawText((QPointF(0, 0) * windowTransform)+QPointF(0,12),QString::number(a));
   painter.drawText((QPointF(1, 0) * windowTransform)+QPointF(0,12),QString::number(b));
-  painter.drawText((QPointF(0, 1) * windowTransform)-QPointF(0,12),formula);
+  painter.drawText((QPointF(0, 1) * windowTransform)+QPointF(0,-12),formula);
+  painter.drawText((QPointF(1, 0) * windowTransform)+QPointF(12,0),QString::number(min_y));
+  painter.drawText((QPointF(1, 1) * windowTransform)+QPointF(12,0),QString::number(max_y));
+  painter.drawText((QPointF(wone.x(), fzero.y()))+QPointF(12,0),"0");
+  painter.drawText((QPointF(fzero.x(), wzero.y()))+QPointF(0,12),"0");
 }
 
 void PlotWidget::resizeEvent(QResizeEvent *e) {
