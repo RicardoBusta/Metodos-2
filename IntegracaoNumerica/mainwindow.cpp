@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  ui->splitter->setStretchFactor(0,1);
+  ui->splitter->setStretchFactor(1,0);
+
   ui->plot_widget->mainWindow = this;
 
   QObject::connect(ui->update_graphic_pushButton,SIGNAL(clicked(bool)),this,SLOT(UpdateFunction()));
@@ -26,8 +29,16 @@ double MainWindow::EvaluateFunction(double x)
   return y;
 }
 
+QString MainWindow::Function()
+{
+  return program.sourceCode();
+}
+
 void MainWindow::UpdateFunction()
 {
+  ui->plot_widget->a = ui->inter_a_doubleSpinBox->value();
+  ui->plot_widget->b = ui->inter_b_doubleSpinBox->value();
+  ui->inter_b_doubleSpinBox->value();
   program = ui->function_lineEdit->text();
   ui->plot_widget->RecalculateFunction();
 }

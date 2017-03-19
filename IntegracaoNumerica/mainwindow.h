@@ -17,6 +17,7 @@ public:
   ~MainWindow();
 
   double EvaluateFunction(double x);
+  QString Function();
 private:
   Ui::MainWindow *ui;
 

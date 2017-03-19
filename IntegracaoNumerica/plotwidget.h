@@ -6,6 +6,8 @@
 
 class MainWindow;
 
+const int kDrawDiv = 50;
+
 class PlotWidget : public QWidget
 {
   Q_OBJECT
@@ -15,6 +17,12 @@ public:
   MainWindow *mainWindow;
 
   void RecalculateFunction();
+
+  float a;
+  float b;
+
+  float max_y;
+  float min_y;
 private:
   /* Called when the widget must be redrawn */
   void paintEvent(QPaintEvent *e);
@@ -24,13 +32,14 @@ private:
 
   /* Saves the coordinate transform */
   QTransform transform;
+  QTransform functionTransform;
+  QTransform windowTransform;
 
-  float a;
-  float b;
-
-  float intervalX[30];
+  float intervalX[kDrawDiv];
 
   QPolygonF polygon;
+
+  QString formula;
 
 signals:
 
