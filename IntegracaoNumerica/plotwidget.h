@@ -5,6 +5,7 @@
 #include <QTransform>
 
 class MainWindow;
+class IntegrationMethod;
 
 const int kDrawDiv = 50;
 

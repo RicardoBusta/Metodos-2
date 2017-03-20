@@ -16,11 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     plotwidget.cpp \
     integrationmethod.cpp \
-    metodos/trapezoidalrule.cpp
+    metodos/rectanglemethod.cpp
 
 HEADERS  += mainwindow.h \
     plotwidget.h \
     integrationmethod.h \
-    metodos/trapezoidalrule.h
+    metodos/rectanglemethod.h
 
 FORMS    += mainwindow.ui

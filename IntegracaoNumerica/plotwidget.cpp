@@ -6,6 +6,7 @@
 #include <limits>
 
 #include "mainwindow.h"
+#include "integrationmethod.h"
 
 // Pixels de largura da borda ao redor do gráfico
 const int kBorder = 40;
@@ -20,6 +21,7 @@ PlotWidget::PlotWidget(QWidget *parent)
 }
 
 void PlotWidget::paintEvent(QPaintEvent *e) {
+  Q_UNUSED(e);
   QPainter painter(this);
 
   // Calcular eixos do zero na transformação
@@ -35,8 +37,19 @@ void PlotWidget::paintEvent(QPaintEvent *e) {
   // Desenhar função
   painter.setPen(Qt::NoPen);
   painter.setBrush(Qt::gray);
-  qDebug() << "drawing polygon" << polygon.size();
   painter.drawPolygon(polygon*transform);
+
+  painter.setTransform(transform);
+  if(mainWindow->CurrentMethod()!=nullptr){
+    QPen p;
+    p.setColor(Qt::red);
+    p.setCosmetic(true);
+    painter.setPen(p);
+    painter.setBrush(Qt::NoBrush);
+    mainWindow->CurrentMethod()->Draw(&painter);
+  }
+  QTransform identity;
+  painter.setTransform(identity);
 
   painter.setPen(Qt::black);
   painter.setBrush(Qt::NoBrush);
@@ -56,6 +69,7 @@ void PlotWidget::paintEvent(QPaintEvent *e) {
 }
 
 void PlotWidget::resizeEvent(QResizeEvent *e) {
+  Q_UNUSED(e);
   int w = (width() - 1) - 2 * kBorder;
   int h = (height() - 1) - 2 * kBorder;
 
@@ -80,7 +94,6 @@ void PlotWidget::RecalculateFunction()
     float y = mainWindow->EvaluateFunction(x);
     max_y = qMax(y,max_y);
     min_y = qMin(y,min_y);
-    qDebug() << x << y;
     polygon.append(QPointF(x,y));
     ;
   }
@@ -89,7 +102,6 @@ void PlotWidget::RecalculateFunction()
   polygon.append(QPointF(a,0));
 
   functionTransform.reset();
-  qDebug() << "print l" << l;
   functionTransform.scale(1/l,1/(max_y-min_y));
   if(min_y < 0){
     functionTransform.translate(0,-min_y);

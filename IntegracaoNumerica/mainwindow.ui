@@ -149,7 +149,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QComboBox" name="comboBox">
+            <widget class="QComboBox" name="method_comboBox">
              <item>
               <property name="text">
                <string>Método</string>
@@ -158,9 +158,34 @@
             </widget>
            </item>
            <item>
-            <widget class="QStackedWidget" name="stackedWidget">
-             <widget class="QWidget" name="page"/>
-             <widget class="QWidget" name="page_2"/>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string>Parâmetros</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QStackedWidget" name="method_stackedWidget">
+                <widget class="QWidget" name="page">
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Escolha um método acima.</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="integrate_pushButton">
+             <property name="text">
+              <string>Calcular</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -173,11 +198,24 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="result_label">
                <property name="text">
                 <string>RESULTADO</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </item>

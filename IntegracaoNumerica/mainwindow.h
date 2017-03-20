@@ -3,10 +3,13 @@
 
 #include <QMainWindow>
 #include <QScriptEngine>
+#include <QVector>
 
 namespace Ui {
 class MainWindow;
 }
+
+class IntegrationMethod;
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +21,8 @@ public:
 
   double EvaluateFunction(double x);
   QString Function();
+
+  IntegrationMethod *CurrentMethod();
 private:
   Ui::MainWindow *ui;
 
@@ -25,8 +30,16 @@ private:
   QScriptProgram program;
 
   double fdrawvalues[30];
+
+  QVector<IntegrationMethod*> methods;
+
+  void AddMethods();
+
+  IntegrationMethod *currentMethod;
 private slots:
   void UpdateFunction();
+  void ReadFunctionValues();
+  void CalculateIntegral();
 };
 
 #endif // MAINWINDOW_H
