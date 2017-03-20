@@ -13,7 +13,10 @@ public:
   QString name;
   QVariant::Type type;
   QVariant defaultValue;
+  QVariant min;
+  QVariant max;
   QWidget *widget;
+  bool clamp;
 };
 
 class MainWindow;
@@ -29,6 +32,7 @@ public:
   virtual double Integrate()=0;
 
   void AddParameter(QString name, QVariant defaultValue);
+  void AddParameter(QString name, QVariant defaultValue, QVariant min, QVariant max);
 
   QWidget *GenPage();
 

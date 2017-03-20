@@ -2,7 +2,7 @@
 
 RectangleMethod::RectangleMethod()
 {
-  AddParameter("Divisões",10);
+  AddParameter("Divisões",10,1,999);
   AddParameter("Teste Bool",true);
   AddParameter("Teste Float",0.5f);
   AddParameter("Teste Double",0.35);

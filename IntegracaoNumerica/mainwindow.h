@@ -40,6 +40,8 @@ private slots:
   void UpdateFunction();
   void ReadFunctionValues();
   void CalculateIntegral();
+
+  void SetFunction();
 };
 
 #endif // MAINWINDOW_H

@@ -36,9 +36,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
   ui->function_lineEdit->setText("x*x");
 
-  QObject::connect(ui->update_graphic_pushButton,SIGNAL(clicked(bool)),this,SLOT(UpdateFunction()));
   QObject::connect(ui->method_comboBox,SIGNAL(currentIndexChanged(int)),ui->method_stackedWidget,SLOT(setCurrentIndex(int)));
   QObject::connect(ui->integrate_pushButton,SIGNAL(clicked(bool)),this,SLOT(CalculateIntegral()));
+
+  QObject::connect(ui->cos_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->sin_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->x2_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->twox_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+
   /* Inicializa o gráfico com a função default */
   UpdateFunction();
 }
@@ -92,8 +97,23 @@ void MainWindow::CalculateIntegral()
     double res = m->Integrate();
     ui->result_label->setText(QString::number(res));
     currentMethod = m;
-    ui->plot_widget->RecalculateFunction();
   }else{
     currentMethod = nullptr;
   }
+  ui->plot_widget->RecalculateFunction();
+}
+
+void MainWindow::SetFunction()
+{
+  QWidget *w = qobject_cast<QWidget*>(sender());
+  if(w==ui->x2_pushButton){
+    ui->function_lineEdit->setText("x*x");
+  }else if(w==ui->twox_pushButton){
+    ui->function_lineEdit->setText("Math.pow(2,x)");
+  }else if(w==ui->cos_pushButton){
+    ui->function_lineEdit->setText("Math.cos(x)");
+  }else if(w==ui->sin_pushButton){
+    ui->function_lineEdit->setText("Math.sin(x)");
+  }
+  UpdateFunction();
 }

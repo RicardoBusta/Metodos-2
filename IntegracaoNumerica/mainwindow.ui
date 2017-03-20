@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
+    <width>681</width>
     <height>488</height>
    </rect>
   </property>
@@ -133,11 +133,36 @@
             </layout>
            </item>
            <item>
-            <widget class="QPushButton" name="update_graphic_pushButton">
-             <property name="text">
-              <string>Atualizar</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QPushButton" name="x2_pushButton">
+               <property name="text">
+                <string>x²</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="cos_pushButton">
+               <property name="text">
+                <string>cos(x)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="sin_pushButton">
+               <property name="text">
+                <string>sin(x)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="twox_pushButton">
+               <property name="text">
+                <string>2^x</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -246,7 +271,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>848</width>
+     <width>681</width>
      <height>21</height>
     </rect>
    </property>

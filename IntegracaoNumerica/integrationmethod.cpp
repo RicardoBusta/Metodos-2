@@ -25,6 +25,22 @@ void IntegrationMethod::AddParameter(QString name, QVariant defaultValue)
   i->name = name;
   i->type = defaultValue.type();
   i->defaultValue = defaultValue;
+  i->clamp = false;
+  parameters.insert(name,i);
+}
+
+void IntegrationMethod::AddParameter(QString name, QVariant defaultValue, QVariant min, QVariant max)
+{
+  if(parameters.contains(name)){
+    return;
+  }
+  IntegrationParameter *i = new IntegrationParameter;
+  i->name = name;
+  i->type = defaultValue.type();
+  i->defaultValue = defaultValue;
+  i->min = min;
+  i->max = max;
+  i->clamp = true;
   parameters.insert(name,i);
 }
 
@@ -39,8 +55,13 @@ QWidget * IntegrationMethod::GenPage()
     case QVariant::Int:
       w = new QSpinBox();
       ((QSpinBox*)w)->setValue(i->defaultValue.toInt());
-      ((QSpinBox*)w)->setMinimum(-9999999);
-      ((QSpinBox*)w)->setMaximum(9999999);
+      if(i->clamp){
+        ((QSpinBox*)w)->setMinimum(i->min.toInt());
+        ((QSpinBox*)w)->setMaximum(i->max.toInt());
+      }else{
+        ((QSpinBox*)w)->setMinimum(-9999999);
+        ((QSpinBox*)w)->setMaximum(9999999);
+      }
       break;
     case QVariant::Bool:
       w = new QCheckBox();
@@ -50,8 +71,13 @@ QWidget * IntegrationMethod::GenPage()
       w = new QDoubleSpinBox();
       ((QDoubleSpinBox*)w)->setValue(i->defaultValue.toDouble());
       ((QDoubleSpinBox*)w)->setDecimals(8);
-      ((QDoubleSpinBox*)w)->setMinimum(-9999999);
-      ((QDoubleSpinBox*)w)->setMaximum(9999999);
+      if(i->clamp){
+        ((QDoubleSpinBox*)w)->setMinimum(i->min.toDouble());
+        ((QDoubleSpinBox*)w)->setMaximum(i->max.toDouble());
+      }else{
+        ((QDoubleSpinBox*)w)->setMinimum(-9999999);
+        ((QDoubleSpinBox*)w)->setMaximum(9999999);
+      }
       break;
     case QMetaType::Float:
       w = new QDoubleSpinBox();
@@ -59,6 +85,13 @@ QWidget * IntegrationMethod::GenPage()
       ((QDoubleSpinBox*)w)->setDecimals(4);
       ((QDoubleSpinBox*)w)->setMinimum(-9999999);
       ((QDoubleSpinBox*)w)->setMaximum(9999999);
+      if(i->clamp){
+        ((QDoubleSpinBox*)w)->setMinimum(i->min.toDouble());
+        ((QDoubleSpinBox*)w)->setMaximum(i->max.toDouble());
+      }else{
+        ((QDoubleSpinBox*)w)->setMinimum(-9999999);
+        ((QDoubleSpinBox*)w)->setMaximum(9999999);
+      }
       break;
     default:
       continue;
