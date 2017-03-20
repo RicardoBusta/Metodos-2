@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     plotwidget.cpp \
-    integrationmethod.cpp
+    integrationmethod.cpp \
+    metodos/trapezoidalrule.cpp
 
 HEADERS  += mainwindow.h \
     plotwidget.h \
-    integrationmethod.h
+    integrationmethod.h \
+    metodos/trapezoidalrule.h
 
 FORMS    += mainwindow.ui
