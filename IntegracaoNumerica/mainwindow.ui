@@ -45,7 +45,7 @@
            <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>Definir função com sintaxe javascript e usando variável &quot;x&quot;</string>
+              <string>Definir função com sintaxe javascript simples e funções do Math</string>
              </property>
              <property name="textFormat">
               <enum>Qt::PlainText</enum>
@@ -135,9 +135,16 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QPushButton" name="x2_pushButton">
+              <widget class="QPushButton" name="abs_pushButton">
                <property name="text">
-                <string>x²</string>
+                <string>abs(x)</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pow_pushButton">
+               <property name="text">
+                <string>ceil(x)</string>
                </property>
               </widget>
              </item>
@@ -149,16 +156,9 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="sin_pushButton">
+              <widget class="QPushButton" name="exp_pushButton">
                <property name="text">
-                <string>sin(x)</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="twox_pushButton">
-               <property name="text">
-                <string>2^x</string>
+                <string>exp(x)</string>
                </property>
               </widget>
              </item>

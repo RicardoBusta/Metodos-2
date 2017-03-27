@@ -7,6 +7,9 @@
 #include "integrationmethod.h"
 
 /* Registro de métodos para serem usados pela aplicação */
+
+QRegularExpression jsMath = QRegularExpression("([^\\s]|^)(abs|acos|asin|atan|atan2|ceil|exp|floor|log|max|min|pow|random|round|sqrt|tan|cos|sin)\\(");
+
 void MainWindow::AddMethods()
 {
   methods.push_back(new RectangleMethod());
@@ -40,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
   QObject::connect(ui->integrate_pushButton,SIGNAL(clicked(bool)),this,SLOT(CalculateIntegral()));
 
   QObject::connect(ui->cos_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
-  QObject::connect(ui->sin_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
-  QObject::connect(ui->x2_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
-  QObject::connect(ui->twox_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->exp_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->pow_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
+  QObject::connect(ui->abs_pushButton,SIGNAL(clicked(bool)),this,SLOT(SetFunction()));
 
   /* Inicializa o gráfico com a função default */
   UpdateFunction();
@@ -51,6 +54,15 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+QString MainWindow::PrepareProgram(const QString &program)
+{
+  QString out = program;
+  qDebug() << "in" << out;
+  out.replace(jsMath,"\\1Math.\\2(");
+  qDebug() << "out" << out;
+  return out;
 }
 
 /* Calcula o valor da função usando o parâmetro x */
@@ -83,7 +95,7 @@ void MainWindow::ReadFunctionValues()
 {
   ui->plot_widget->a = ui->inter_a_doubleSpinBox->value();
   ui->plot_widget->b = ui->inter_b_doubleSpinBox->value();
-  program = ui->function_lineEdit->text();
+  program = PrepareProgram(ui->function_lineEdit->text());
 }
 
 void MainWindow::CalculateIntegral()
@@ -106,14 +118,14 @@ void MainWindow::CalculateIntegral()
 void MainWindow::SetFunction()
 {
   QWidget *w = qobject_cast<QWidget*>(sender());
-  if(w==ui->x2_pushButton){
-    ui->function_lineEdit->setText("x*x");
-  }else if(w==ui->twox_pushButton){
-    ui->function_lineEdit->setText("Math.pow(2,x)");
+  if(w==ui->abs_pushButton){
+    ui->function_lineEdit->setText("abs(x)");
+  }else if(w==ui->pow_pushButton){
+    ui->function_lineEdit->setText("ceil(x)");
   }else if(w==ui->cos_pushButton){
-    ui->function_lineEdit->setText("Math.cos(x)");
-  }else if(w==ui->sin_pushButton){
-    ui->function_lineEdit->setText("Math.sin(x)");
+    ui->function_lineEdit->setText("cos(x)");
+  }else if(w==ui->exp_pushButton){
+    ui->function_lineEdit->setText("exp(x)");
   }
   UpdateFunction();
 }

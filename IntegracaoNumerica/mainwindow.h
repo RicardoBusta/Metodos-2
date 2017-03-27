@@ -36,6 +36,8 @@ private:
   void AddMethods();
 
   IntegrationMethod *currentMethod;
+
+  QString PrepareProgram(const QString &program);
 private slots:
   void UpdateFunction();
   void ReadFunctionValues();
